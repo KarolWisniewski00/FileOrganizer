@@ -39,12 +39,14 @@ class FileOrganizer:
         for file in files:
             extension = self.get_extension(file)
             for folder in list_folders:
-                try:
-                    shutil.move(
-                        os.path.join(self.folder_path_abs, file),
-                        os.path.join(self.folder_path_abs, extension, file))
-                except:
-                    print("[ERROR] Can't move {} file.".format(file))
+                if extension == folder:
+                    try:
+                        shutil.move(
+                            "{}\{}".format(self.folder_path_abs, file),
+                            "{}\{}".format(self.folder_path_abs, folder[1:]))
+                    except:
+                        print("[ERROR] Can't move {} file.".format(file))
+                    break
 
     def stort_by_extension(self):
         files = self.get_files()
